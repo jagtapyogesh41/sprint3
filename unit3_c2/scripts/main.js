@@ -11,5 +11,5 @@ function main(){
         userAmount:form.amount.value,
     }
     localStorage.setItem("user",JSON.stringify(data))
-    window.location.href="purchase.html"
+    window.location.href="voucher.html"
 }

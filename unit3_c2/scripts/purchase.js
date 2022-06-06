@@ -1,8 +1,8 @@
 let apikey=`https://masai-vouchers-api.herokuapp.com/api/vouchers`
-let voucherdata = document.getElementById("vouchers")
+let voucherdata = document.getElementById("voucher_list")
 let user = JSON.parse(localStorage.getItem("user"))
-let vamount = document.getElementById("vamount")
-vamount.append(user.userAmount)
+let vamount = document.getElementById("wallet_balance")
+vamount.innerHTML=user.userAmount
 let arr =[];
 
 async function mainue(){
@@ -20,6 +20,7 @@ async function Append(data){
     // voucherdata.innerHTML="";
     data.forEach(element => {
         const div1 = document.createElement('div');
+        // div1.setAttribute("id","voucher_list")
 
         const image = document.createElement('img');
         image.src = element.image;
@@ -32,6 +33,7 @@ async function Append(data){
 
         const btn = document.createElement('button');
         btn.innerText ="buy";
+        btn.setAttribute("id","buy_voucher")
         btn.addEventListener("click",function(){
             purchaseV(element)
         })
@@ -46,14 +48,16 @@ async function Append(data){
 function purchaseV(element){
     
     let a = Number(user.userAmount)-element.price
-    // console.log(a)
+    console.log(element.price)
     // console.log(a+10)
     if (a<0){
         alert("insufficinet balance")
     }
     else{
         vamount.innerHTML = a;
-        arr.push(element)
+        console.log(a)
+        arr.push([element,a])
+        localStorage.setItem("purchase",JSON.stringify(arr))
     }
-    localStorage.setItem("voucher",JSON.stringify(arr))
+    
 }
